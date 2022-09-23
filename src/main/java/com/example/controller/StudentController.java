@@ -84,6 +84,11 @@ public class StudentController {
 		return service.nameStartWith(name);
 	}
 	
+	@GetMapping("/byDepartmentId")
+	public List<Student> byDepartmentId(@RequestParam String depId){
+		return service.findByDepartmentId(depId);
+	}
+	
 	@PutMapping("/update")
 	public Student updateById(@RequestBody Student student) {
 		return service.updateById(student);

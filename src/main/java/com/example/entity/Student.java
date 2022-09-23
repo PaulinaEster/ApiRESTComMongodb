@@ -3,6 +3,7 @@ package com.example.entity;
 import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -24,8 +25,10 @@ public class Student{
 	@Field(name = "mail")
 	private String email;
 	
+	@DBRef
 	private Department department;
 	
+	@DBRef
 	private List<Subject> subjects; 
 
 	public Student(String id, Department department) {

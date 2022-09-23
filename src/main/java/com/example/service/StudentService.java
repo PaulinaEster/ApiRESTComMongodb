@@ -9,7 +9,9 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Student;
+import com.example.repository.DepartmentRepository;
 import com.example.repository.StudentRepository;
+import com.example.repository.SubjectRepository;
 
 @Service
 public class StudentService {
@@ -17,7 +19,19 @@ public class StudentService {
 	@Autowired
 	StudentRepository repository;
 	
+	@Autowired
+	DepartmentRepository departmentRepository;
+	
+	@Autowired
+	SubjectRepository subjectRepository;
+	
 	public Student createStudent(Student student) {
+		if(student.getDepartment() != null) {
+			departmentRepository.save(student.getDepartment());
+		}
+		if(student.getSubjects() != null && student.getSubjects().size() > 0) {
+			subjectRepository.saveAll(student.getSubjects());
+		}
 		return repository.save(student);
 	}
 
@@ -47,6 +61,7 @@ public class StudentService {
 
 	public List<Student> getByName(String name) {
 		return repository.findByName(name);
+		// return repository.getByName(name);
 	}
 
 	public Student studentByNameAndMail(String name, String mail) {
@@ -82,5 +97,11 @@ public class StudentService {
 	public List<Student> nameStartWith(String name) {
 		return repository.findByNameStartsWith(name);
 	}
+	
+	public List<Student> findByDepartmentId(String depId){
+		return repository.findByDepartmentId(depId);
+	}
+	
+	
 
 }

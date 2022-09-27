@@ -22,6 +22,8 @@ public class Student{
 	 
 	private String name;
 	
+	private String description;
+	
 	@Field(name = "mail")
 	private String email;
 	
